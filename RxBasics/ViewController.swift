@@ -51,12 +51,16 @@ class ViewController: UIViewController {
 //                .disposed(by: disposeBag)
 //        }
         executeProcedure(for: "PublishSubject") {
+            enum CustomeError: Error {
+                case defaultError
+            }
             let pubSubject = PublishSubject<String>()
             pubSubject.subscribe {
                 print($0)
             }
             pubSubject.on(.next("First Event"))
-            pubSubject.onCompleted()
+            pubSubject.onError(CustomeError.defaultError)
+//            pubSubject.onCompleted()
             pubSubject.onNext("Second Event")
         }
         

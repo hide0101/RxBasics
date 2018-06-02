@@ -13,7 +13,12 @@ class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        executeProcedure(for: "just") {
+            let observable = Observable.just("Example of Just Operator!")
+            observable.subscribe({ (event: Event<String>) in
+                print(event)
+            })
+        }
     }
 
     override func didReceiveMemoryWarning() {

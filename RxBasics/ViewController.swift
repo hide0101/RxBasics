@@ -56,6 +56,7 @@ class ViewController: UIViewController {
                 print($0)
             }
             pubSubject.on(.next("First Event"))
+            pubSubject.onCompleted()
             pubSubject.onNext("Second Event")
         }
         

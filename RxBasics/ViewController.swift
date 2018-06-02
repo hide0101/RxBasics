@@ -25,6 +25,13 @@ class ViewController: UIViewController {
                 print($0)
             })
         }
+        executeProcedure(for: "from") {
+            let subscribed = Observable.from([10, 20, 30])
+                .subscribe({
+                    print($0)
+                })
+            subscribed.dispose()
+        }
     }
 
     override func didReceiveMemoryWarning() {

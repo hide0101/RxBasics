@@ -40,7 +40,7 @@ class ViewController: UIViewController {
 //                       onDisposed: { print("Sequence terminated hence Disposed")}
 //        )
 //        .disposed(by: disposeBag)
-//        
+//
 //        executeProcedure(for: "error") {
 //            enum CustomeError: Error {
 //                case defaultError
@@ -50,6 +50,15 @@ class ViewController: UIViewController {
 //                .subscribe(onError: { print($0) })
 //                .disposed(by: disposeBag)
 //        }
+        executeProcedure(for: "PublishSubject") {
+            let pubSubject = PublishSubject<String>()
+            pubSubject.subscribe {
+                print($0)
+            }
+            pubSubject.on(.next("First Event"))
+            pubSubject.onNext("Second Event")
+        }
+        
     }
 
     override func didReceiveMemoryWarning() {

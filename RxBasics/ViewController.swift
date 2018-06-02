@@ -13,24 +13,25 @@ class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        executeProcedure(for: "just") {
-            let observable = Observable.just("Example of Just Operator!")
-            observable.subscribe({ (event: Event<String>) in
-                print(event)
-            })
-        }
-        executeProcedure(for: "of") {
-            let observable = Observable.of(10, 20, 30)
-            observable.subscribe( {
-                print($0)
-            })
-        }
+//        executeProcedure(for: "just") {
+//            let observable = Observable.just("Example of Just Operator!")
+//            observable.subscribe({ (event: Event<String>) in
+//                print(event)
+//            })
+//        }
+//        executeProcedure(for: "of") {
+//            let observable = Observable.of(10, 20, 30)
+//            observable.subscribe( {
+//                print($0)
+//            })
+//        }
         executeProcedure(for: "from") {
+            let disposeBag = DisposeBag()
             let subscribed = Observable.from([10, 20, 30])
-                .subscribe({
+                .subscribe(onNext:{
                     print($0)
                 })
-            subscribed.dispose()
+            subscribed.disposed(by: disposeBag)
         }
     }
 

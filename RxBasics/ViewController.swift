@@ -25,14 +25,31 @@ class ViewController: UIViewController {
 //                print($0)
 //            })
 //        }
-        executeProcedure(for: "from") {
-            let disposeBag = DisposeBag()
-            let subscribed = Observable.from([10, 20, 30])
-                .subscribe(onNext:{
-                    print($0)
-                })
-            subscribed.disposed(by: disposeBag)
-        }
+//        executeProcedure(for: "from") {
+//            let disposeBag = DisposeBag()
+//            let subscribed = Observable.from([10, 20, 30])
+//                .subscribe(onNext:{
+//                    print($0)
+//                })
+//            subscribed.disposed(by: disposeBag)
+//        }
+//        let disposeBag = DisposeBag()
+//        Observable.from([1, 2, 3])
+//            .subscribe(onNext: { print($0) },
+//                       onCompleted: { print("Completed the events") },
+//                       onDisposed: { print("Sequence terminated hence Disposed")}
+//        )
+//        .disposed(by: disposeBag)
+//        
+//        executeProcedure(for: "error") {
+//            enum CustomeError: Error {
+//                case defaultError
+//            }
+//            let disposeBag = DisposeBag()
+//            Observable<Void>.error(CustomeError.defaultError)
+//                .subscribe(onError: { print($0) })
+//                .disposed(by: disposeBag)
+//        }
     }
 
     override func didReceiveMemoryWarning() {

@@ -50,20 +50,40 @@ class ViewController: UIViewController {
 //                .subscribe(onError: { print($0) })
 //                .disposed(by: disposeBag)
 //        }
-        executeProcedure(for: "PublishSubject") {
-            enum CustomeError: Error {
-                case defaultError
-            }
-            let pubSubject = PublishSubject<String>()
-            pubSubject.subscribe {
-                print($0)
-            }
-            pubSubject.on(.next("First Event"))
-            pubSubject.onError(CustomeError.defaultError)
-//            pubSubject.onCompleted()
-            pubSubject.onNext("Second Event")
+//        executeProcedure(for: "PublishSubject") {
+//            enum CustomeError: Error {
+//                case defaultError
+//            }
+//            let pubSubject = PublishSubject<String>()
+//            let disposeBag = DisposeBag()
+//            pubSubject.subscribe {
+//                print($0)
+//            }
+//            .disposed(by: disposeBag)
+//            pubSubject.on(.next("First Event"))
+////            pubSubject.onError(CustomeError.defaultError)
+////            pubSubject.onCompleted()
+//            pubSubject.onNext("Second Event")
+//            let newSubcription = pubSubject.subscribe(onNext: {
+//                print("New Subscription", $0)
+//            })
+//            pubSubject.onNext("I am New!")
+//            newSubcription.dispose()
+//            pubSubject.onNext("Fourth Event")
+//        }
+        executeProcedure(for: "BehaviorSubject") {
+            let disposeBag = DisposeBag()
+            let behSubject = BehaviorSubject(value: "Test")
+            let initialSubscription = behSubject.subscribe(onNext: {
+                print("Line number is \(#line) and value is", $0)
+            })
+            behSubject.onNext("Second Event")
+            let subsequentSubscription = behSubject.subscribe(onNext: {
+                print("Line number is \(#line) and value is", $0)
+            })
+            initialSubscription.disposed(by: disposeBag)
+            subsequentSubscription.disposed(by: disposeBag)
         }
-        
     }
 
     override func didReceiveMemoryWarning() {

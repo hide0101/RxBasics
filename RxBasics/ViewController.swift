@@ -101,15 +101,24 @@ class ViewController: UIViewController {
 //            })
 //            .disposed(by: disposeBag)
 //        }
-        executeProcedure(for: "Variable") {
-            let disposeBag = DisposeBag()
-            let variable = Variable(1)
-            variable.asObservable()
-                .subscribe {
+//        executeProcedure(for: "Variable") {
+//            let disposeBag = DisposeBag()
+//            let variable = Variable(1)
+//            variable.asObservable()
+//                .subscribe {
+//                    print($0)
+//                }
+//                .disposed(by: disposeBag)
+//            variable.value = 2
+//        }
+//        RxOperators
+        executeProcedure(for: "map") {
+            Observable.of(10, 20, 30)
+                .map({$0 * $0})
+                .subscribe(onNext: {
                     print($0)
-                }
-                .disposed(by: disposeBag)
-            variable.value = 2
+                })
+                .dispose()
         }
     }
 

@@ -84,22 +84,32 @@ class ViewController: UIViewController {
 //            initialSubscription.disposed(by: disposeBag)
 //            subsequentSubscription.disposed(by: disposeBag)
 //        }
-        executeProcedure(for: "ReplaySubject") {
+//        executeProcedure(for: "ReplaySubject") {
+//            let disposeBag = DisposeBag()
+//            let repSubject = ReplaySubject<String>.create(bufferSize: 3)
+//            repSubject.onNext("First")
+//            repSubject.onNext("Second")
+//            repSubject.onNext("Third")
+//            repSubject.onNext("Fourth")
+//            repSubject.subscribe(onNext: {
+//                print($0)
+//            })
+//            .disposed(by: disposeBag)
+//            repSubject.onNext("Fifth")
+//            repSubject.subscribe(onNext: {
+//                print("New Subscription:", $0)
+//            })
+//            .disposed(by: disposeBag)
+//        }
+        executeProcedure(for: "Variable") {
             let disposeBag = DisposeBag()
-            let repSubject = ReplaySubject<String>.create(bufferSize: 3)
-            repSubject.onNext("First")
-            repSubject.onNext("Second")
-            repSubject.onNext("Third")
-            repSubject.onNext("Fourth")
-            repSubject.subscribe(onNext: {
-                print($0)
-            })
-            .disposed(by: disposeBag)
-            repSubject.onNext("Fifth")
-            repSubject.subscribe(onNext: {
-                print("New Subscription:", $0)
-            })
-            .disposed(by: disposeBag)
+            let variable = Variable(1)
+            variable.asObservable()
+                .subscribe {
+                    print($0)
+                }
+                .disposed(by: disposeBag)
+            variable.value = 2
         }
     }
 

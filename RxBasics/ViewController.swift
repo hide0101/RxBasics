@@ -71,18 +71,35 @@ class ViewController: UIViewController {
 //            newSubcription.dispose()
 //            pubSubject.onNext("Fourth Event")
 //        }
-        executeProcedure(for: "BehaviorSubject") {
+//        executeProcedure(for: "BehaviorSubject") {
+//            let disposeBag = DisposeBag()
+//            let behSubject = BehaviorSubject(value: "Test")
+//            let initialSubscription = behSubject.subscribe(onNext: {
+//                print("Line number is \(#line) and value is", $0)
+//            })
+//            behSubject.onNext("Second Event")
+//            let subsequentSubscription = behSubject.subscribe(onNext: {
+//                print("Line number is \(#line) and value is", $0)
+//            })
+//            initialSubscription.disposed(by: disposeBag)
+//            subsequentSubscription.disposed(by: disposeBag)
+//        }
+        executeProcedure(for: "ReplaySubject") {
             let disposeBag = DisposeBag()
-            let behSubject = BehaviorSubject(value: "Test")
-            let initialSubscription = behSubject.subscribe(onNext: {
-                print("Line number is \(#line) and value is", $0)
+            let repSubject = ReplaySubject<String>.create(bufferSize: 3)
+            repSubject.onNext("First")
+            repSubject.onNext("Second")
+            repSubject.onNext("Third")
+            repSubject.onNext("Fourth")
+            repSubject.subscribe(onNext: {
+                print($0)
             })
-            behSubject.onNext("Second Event")
-            let subsequentSubscription = behSubject.subscribe(onNext: {
-                print("Line number is \(#line) and value is", $0)
+            .disposed(by: disposeBag)
+            repSubject.onNext("Fifth")
+            repSubject.subscribe(onNext: {
+                print("New Subscription:", $0)
             })
-            initialSubscription.disposed(by: disposeBag)
-            subsequentSubscription.disposed(by: disposeBag)
+            .disposed(by: disposeBag)
         }
     }
 

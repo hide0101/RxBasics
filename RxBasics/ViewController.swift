@@ -139,24 +139,24 @@ class ViewController: UIViewController {
 //            currentPlayer.value = gemmea
 //            alex.playerScore.value = 96
 //        }
-        executeProcedure(for: "scan and buffer") {
-            let disposeBag = DisposeBag()
-            let gameScore = PublishSubject<Int>()
-            gameScore.buffer(timeSpan: 0.0, count: 3, scheduler: MainScheduler.instance)
-                .map{
-                    print($0, "-->", terminator: "")
-                    return $0.reduce(0, +)
-                }
-                .scan(501, accumulator: -)
-                .map({max($0, 0)})
-                .subscribe(onNext: {
-                    print($0)
-                })
-                .disposed(by: disposeBag)
-            gameScore.onNext(60)
-            gameScore.onNext(13)
-            gameScore.onNext(50)
-        }
+//        executeProcedure(for: "scan and buffer") {
+//            let disposeBag = DisposeBag()
+//            let gameScore = PublishSubject<Int>()
+//            gameScore.buffer(timeSpan: 0.0, count: 3, scheduler: MainScheduler.instance)
+//                .map{
+//                    print($0, "-->", terminator: "")
+//                    return $0.reduce(0, +)
+//                }
+//                .scan(501, accumulator: -)
+//                .map({max($0, 0)})
+//                .subscribe(onNext: {
+//                    print($0)
+//                })
+//                .disposed(by: disposeBag)
+//            gameScore.onNext(60)
+//            gameScore.onNext(13)
+//            gameScore.onNext(50)
+//        }
     }
 
     override func didReceiveMemoryWarning() {
@@ -168,6 +168,19 @@ class ViewController: UIViewController {
         print("Procedure executed for:", description)
         procedure()
     }
+    
+}
 
+public extension Int {
+    func isPrime() -> Bool {
+        guard self > 1  else { return false }
+        var isPrimeFlag = true
+        for index in 2..<self {
+            if self % index == 0 {
+                isPrimeFlag = false
+            }
+        }
+        return isPrimeFlag
+    }
 }
 
